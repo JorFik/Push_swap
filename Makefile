@@ -6,7 +6,7 @@
 #    By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 21:57:25 by JFikents          #+#    #+#              #
-#    Updated: 2023/11/21 10:55:21 by JFikents         ###   ########.fr        #
+#    Updated: 2023/11/26 19:00:55 by JFikents         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ LIB = ar rcs
 RM = rm -rf
 CC = cc
 CALLMAKE = make -C
-CFLAGS = -Wall -Wextra -Werror -Iheaders
+CFLAGS = -Wall -Wextra -Werror -I./headers
 ADD = -fsanitize=address -g
 OBJ+ = $(C_FILES:.c=.o) $(BONUS_FILES:.c=.o)
 OBJ = $(C_FILES:.c=.o)
@@ -24,7 +24,9 @@ DEBUGGER = debugger/
 NAME = push_swap
 MAIN =
 TEST =
-C_FILES = srcs/main.c
+C_FILES = srcs/main.c srcs/push.c srcs/swap.c srcs/rotate.c srcs/rrotate.c\
+srcs/del_utils_push_swap.c srcs/utils_push_swap.c\
+
 BONUS_FILES =
 
 .PHONY: clean fclean re all c
@@ -36,8 +38,8 @@ all: $(NAME)
 
 $(NAME) : $(OBJ) a_files
 	@echo "	Compiling $(NAME)..."
-	@$(LIB) $(NAME) $(OBJ)
-	@clean
+	@$(CC) $(CFLAGS) $(C_FILES) $(LIBS_D).a -o $(NAME)
+	@make clean
 
 a_files: $(LIBS_D)
 	@for dir in $(LIBS_D); do \
@@ -46,13 +48,14 @@ a_files: $(LIBS_D)
 	done
 
 %.o : %.c 
-	@echo "Compiling $@..."
+	@echo "	Compiling $@..."
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	@echo "	Cleanig traces..."
 	@echo "	Ereasing Files .o"
-	@$(RM) $(OBJ+)
+	@$(RM) srcs/$(OBJ+)
+	@$(RM) srcs/main.o
 	@echo "	Ereasing Files .a"
 	@$(RM) *.a
 
@@ -62,18 +65,16 @@ fclean: clean
 
 re: fclean all
 
-debug: c
-	@$(CC) $(ADD) $(CCFLAGS) $(H_FILE) $(C_FILES) $(MAIN)
+debug: c a_files
+	@$(CC) $(ADD) $(CFLAGS) $(H_FILE) $(C_FILES) $(MAIN) $(LIBS_D).a 
 	@mv a.out.dSYM $(DEBUGGER)
 	@mv a.out $(DEBUGGER)
-	@mv *.gch $(DEBUGGER)
 	@make fclean
 
-test: c
-	@$(CC) $(ADD) $(CCFLAGS) $(H_FILE) $(TEST)
+test: c a_files
+	@$(CC) $(ADD) $(CFLAGS) $(H_FILE) $(TEST) $(LIBS_D).a 
 	@mv a.out.dSYM $(DEBUGGER)
 	@mv a.out $(DEBUGGER)
-	@mv *.gch $(DEBUGGER)
 	@make fclean
 
 c: fclean
