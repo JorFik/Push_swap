@@ -6,7 +6,7 @@
 #    By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 21:57:25 by JFikents          #+#    #+#              #
-#    Updated: 2023/11/26 19:00:55 by JFikents         ###   ########.fr        #
+#    Updated: 2023/11/28 17:12:30 by JFikents         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ NAME = push_swap
 MAIN =
 TEST =
 C_FILES = srcs/main.c srcs/push.c srcs/swap.c srcs/rotate.c srcs/rrotate.c\
-srcs/del_utils_push_swap.c srcs/utils_push_swap.c\
+srcs/del_utils_push_swap.c srcs/utils_push_swap.c srcs/checks.c\
 
 BONUS_FILES =
 

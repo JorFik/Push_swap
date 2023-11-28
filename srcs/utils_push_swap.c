@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 15:33:16 by JFikents          #+#    #+#             */
-/*   Updated: 2023/11/26 20:05:21 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/11/28 17:11:26 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,39 @@ void	*ft_better_calloc(size_t count, size_t size, t_stacks *stack)
 		i ++;
 	}
 	return (new_p);
+}
+
+int	count_args(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+		i++;
+	return (i);
+}
+
+void	set_the_bases(char *argv[], t_stacks *stack, int argc)
+{
+	int		*content;
+	int		i;
+
+	i = 1;
+	stack->a = NULL;
+	stack->b = NULL;
+	if (argc == 2)
+	{
+		i = 0;
+		argv = ft_split(argv[1], ' ');
+		argc = count_args(argv);
+	}
+	while (argv[i])
+	{
+		check_num(argv[i], stack);
+		check_int(argv[i], stack);
+		content = ft_better_calloc(1, sizeof(int), stack);
+		*content = ft_atoi(argv[i++]);
+		check_doubles(stack, content);
+		ft_lstadd_back(&(stack->a), ft_lstnew(content));
+	}
 }

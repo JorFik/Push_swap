@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 15:46:13 by JFikents          #+#    #+#             */
-/*   Updated: 2023/11/26 20:04:48 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:16:40 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ int	del_lists(t_stacks *stack, int error_message)
 		ft_free_n_null((void **)stack->b);
 		stack->b = tmp;
 	}
-	if (stack && stack->goal)
-		ft_free_n_null((void **)&stack->goal);
 	if (error_message)
-		ft_printf("Error\n");
+		write(STDERR_FILENO, "Error\n", 6);
 	return (1);
 }
 

@@ -6,90 +6,60 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 10:23:32 by JFikents          #+#    #+#             */
-/*   Updated: 2023/11/27 13:24:35 by JFikents         ###   ########.fr       */
+/*   Updated: 2023/11/28 17:59:55 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	count_args(char **argv)
-{
-	int	i;
+// int	main(int argc, char **argv)
+// {
+// 	t_stacks	stack;
 
-	i = 0;
-	while (argv[i])
-		i++;
-	return (i);
-}
+// 	if (argc < 2)
+// 		exit (del_lists(NULL, 0));
+// 	set_the_bases(argv, &stack, argc);
+// 	ft_printf("Init a and b:\n");
+// 	print_nodes(stack.a, stack.b);
 
-void	set_the_bases(char *argv[], t_stacks *stack, int argc)
-{
-	int		*content;
-	int		i;
-	int		adj;
+// 	ft_printf("Exec sa:\n");
+// 	swap(stack.a);
+// 	print_nodes(stack.a, stack.b);
 
-	i = 0;
-	adj = 1;
-	stack->a = NULL;
-	stack->b = NULL;
-	stack->goal = NULL;
-	if (argc == 2)
-	{
-		adj = 0;
-		argv = ft_split(argv[1], ' ');
-		argc = count_args(argv);
-	}
-	stack->goal = (int *)ft_better_calloc(argc - adj, sizeof(int), stack);
-	while (argv[i + adj])
-	{
-		content = ft_better_calloc(1, sizeof(int), stack);
-		*content = ft_atoi(argv[i + adj]);
-		stack->goal[i++] = *content;
-		ft_lstadd_back(&(stack->a), ft_lstnew(content));
-	}
-}
+// 	ft_printf("Exec pb pb pb:\n");
+// 	push(&stack.a, &stack.b);
+// 	push(&stack.a, &stack.b);
+// 	push(&stack.a, &stack.b);
+// 	print_nodes(stack.a, stack.b);
+
+// 	ft_printf("Exec rr:\n");
+// 	rotate_rotate(&stack.a, &stack.b);
+// 	print_nodes(stack.a, stack.b);
+
+// 	ft_printf("Exec rrr:\n");
+// 	rev_rotate_rotate(&stack);
+// 	print_nodes(stack.a, stack.b);
+
+// 	ft_printf("Exec sa:	\n");
+// 	swap(stack.a);
+// 	print_nodes(stack.a, stack.b);
+
+// 	ft_printf("Exec pa pa pa:\n");
+// 	push(&stack.b, &stack.a);
+// 	push(&stack.b, &stack.a);
+// 	push(&stack.b, &stack.a);
+// 	print_nodes(stack.a, stack.b);
+// 	del_lists(&stack, 0);
+// 	return (0);
+// }
 
 int	main(int argc, char **argv)
 {
 	t_stacks	stack;
-	int			i;
 
-	i = 0;
 	if (argc < 2)
-		exit (del_lists(NULL, 1));
+		exit (del_lists(NULL, 0));
 	set_the_bases(argv, &stack, argc);
-	ft_printf("Init a and b:\n");
-	print_nodes(stack.a, stack.b);
-
-	ft_printf("Exec sa:\n");
-	swap(stack.a);
-	print_nodes(stack.a, stack.b);
-
-	ft_printf("Exec pb pb pb:\n");
-	push(&stack.a, &stack.b);
-	push(&stack.a, &stack.b);
-	push(&stack.a, &stack.b);
-	print_nodes(stack.a, stack.b);
-
-	ft_printf("Exec rr:\n");
-	rotate_rotate(&stack.a, &stack.b);
-	print_nodes(stack.a, stack.b);
-
-	ft_printf("Exec rrr:\n");
-	rev_rotate_rotate(&stack);
-	print_nodes(stack.a, stack.b);
-
-	ft_printf("Exec sa:	\n");
-	swap(stack.a);
-	print_nodes(stack.a, stack.b);
-
-	ft_printf("Exec pa pa pa:\n");
-	push(&stack.b, &stack.a);
-	push(&stack.b, &stack.a);
-	push(&stack.b, &stack.a);
-	print_nodes(stack.a, stack.b);
-	while (i != count_nodes(stack.a) + count_nodes(stack.b))
-		ft_printf("%i, ", stack.goal[i++]);
 	del_lists(&stack, 0);
 	return (0);
 }
