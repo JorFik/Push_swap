@@ -6,7 +6,74 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:14:48 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/01 17:15:18 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/02 20:22:56 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
+
+//! EREASE SYSTEM("LEAKS PUSH_SWAP" IN ERRORS.C)
+static void	read_args(int argc, char **argv, t_stack_node stack[2])
+{
+	int	split;
+
+	split = 0;
+	if (argc == 2)
+	{
+		argv = ft_split(argv[1], ' ');
+		exit_on_error((int [3]){IF_NULL, MALLOC_FAIL, READ_ARGS}, argv, stack);
+		split = 1;
+		argc = 0;
+		while (argv[argc])
+			argc++;
+	}
+	check_arg(argv[--argc], stack);
+	stack[A].num = ft_atoi(argv[argc--]);
+	while ((argc == 0 && split == 1) || argc > 0)
+	{
+		check_arg(argv[argc], stack);
+		add_node(&stack[A], ft_atoi(argv[argc--]));
+	}
+	if (split == 1)
+		ft_free_2d_array((void ***)&argv, -1);
+}
+
+//! EREASE SYSTEM("LEAKS PUSH_SWAP" IN ERRORS.C)
+static void	initialize_stack(t_stack_node stack[2])
+{
+	stack[A].num = 0;
+	stack[A].index = 0;
+	stack[A].goal = 0;
+	stack[A].price = 0;
+	stack[A].next = NULL;
+	stack[A].prev = NULL;
+	stack[B].num = 0;
+	stack[B].index = 0;
+	stack[B].goal = 0;
+	stack[B].price = 0;
+	stack[B].next = NULL;
+	stack[B].prev = NULL;
+}
+
+//! EREASE SYSTEM("LEAKS PUSH_SWAP" IN ERRORS.C)
+int	main(int argc, char **argv)
+{
+	t_stack_node	stack[2];
+
+	if (argc < 2)
+		return (write(STDERR_FILENO, "Error\n", 7), NO_ARG);
+	initialize_stack(stack);
+	read_args(argc, argv, stack);
+	print_stack(&stack[A]);
+	exit_on_error((int [3]){SUCCESS, 0, 0}, NULL, stack);
+}
+
+//? * ------------------------ ALLOWED FUNCTIONS ------------------------ * ?//
+/* 
+	ssize_t	read(file_descriptor, buffer, count);
+	ssize_t	write(file_descriptor, buffer, count);
+	void	*malloc(size_t size);
+	void	free(void *ptr);
+	void	exit(int status);
+ */
+//_--------------------------------------------------------------------------_//

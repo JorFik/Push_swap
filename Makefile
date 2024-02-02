@@ -6,7 +6,7 @@
 #    By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 21:57:25 by JFikents          #+#    #+#              #
-#    Updated: 2024/02/01 16:43:39 by JFikents         ###   ########.fr        #
+#    Updated: 2024/02/02 19:40:19 by JFikents         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,9 +67,9 @@ LIBRARIES_DIR = libft
 # (e.g. libft -> -lft -Llibft/)
 LDFLAGS +=
 
-# Here you can add the headers that you need to compile your program
-# The headers are added with the flag -I
-HEADERS_DIR = headers/ libft/h_files/\
+# Here you can add your includes directory that you need to compile your program
+# The headers directories are added with the flag -I to the compilation.
+HEADERS_DIR = includes/ libft/h_files/\
 
 # Here you can add the subdirectory where your source files are
 SRC_DIR = src/
@@ -77,7 +77,8 @@ SRC_DIR = src/
 # Here you can add the files that you need to compile your program
 #_ NOTE: to every file in C_FILES, the path in SRC_DIR will be added at the
 #_ beginning
-C_FILES = main.c
+C_FILES = main.c errors.c stack_operations.c debug_utils.c arg_parsing.c\
+	
 
 # Here you can add the files that you need to compile that are not inside the
 # SRC_DIR
@@ -88,7 +89,7 @@ SRC +=
 # * ----------------------------- DEBUG AREA ------------------------------ * #
 
 # Set OPTIMIZATION to 0 for a proper debug
-OPTIMIZATION = 1
+OPTIMIZATION = 0
 
 # To debug your program, just call the rule debug
 # It will compile your program with the flag -g and move the executable to the
@@ -109,9 +110,12 @@ c:
 	@$(RM) *.out *.dSYM *.gch test
 
 debug: c a_files
+	@echo "	Compiling with debug flags..."
 	@$(CC) $(CFLAGS) $(SRC) $(DEBUG_FLAGS) $(INCLUDES) $(LDFLAGS)
+	@echo "	Moving to $(DEBUGGER)..."
 	@mv a.out.dSYM $(DEBUGGER)
 	@mv a.out $(DEBUGGER)
+	@echo "	Ready to debug!"
 
 test: c a_files
 	@$(CC) $(CFLAGS) $(TEST) $(DEBUG_FLAGS) $(INCLUDES) $(LDFLAGS)
@@ -168,7 +172,7 @@ clean: aclean
 aclean:
 	@for dir in $(LIBRARIES_DIR); do \
 		if test -d $$dir; then \
-			if test $$dir = libft/; then \
+			if test $$dir = libft; then \
 				echo "	Cleaning $$dir..."; \
 				$(CALLMAKE) $$dir fclean; \
 			else \
