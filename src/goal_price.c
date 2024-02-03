@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug_utils.c                                      :+:      :+:    :+:   */
+/*   goal_price.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 19:22:50 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/03 11:53:02 by JFikents         ###   ########.fr       */
+/*   Created: 2024/02/03 12:01:27 by JFikents          #+#    #+#             */
+/*   Updated: 2024/02/03 12:17:55 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_stack(t_stack_node *stack)
+void	set_goal(t_stack_node *stack)
 {
-	while (stack)
+	int		lowest;
+
+	lowest = stack->num;
+	while (stack->next)
 	{
-		ft_printf("%d	%d\n", stack->num, stack->index);
+		if (stack->next->num < lowest)
+			lowest = stack->next->num;
 		stack = stack->next;
 	}
+	print_stack(stack_first(stack));
+	ft_printf("lowest: %d\n", lowest);
 }

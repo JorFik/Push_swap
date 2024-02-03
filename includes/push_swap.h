@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:14:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/02 19:30:28 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/03 12:08:10 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,19 @@ typedef struct s_stack_node
 //_--------------------------------------------------------------------------_//
 
 // ** ---------------------------- FUNCTIONS ---------------------------- ** //
+
+/**
+	@brief #### Finds the ideal place for each number in the stack
+	@note//_DESCRIPTION
+	@brief Goes through the stack and sets the `goal` variable to the index of
+		the number in the sorted stack.
+	@note//_PARAMETERS
+	@param stack The stack containing the numbers to be sorted.
+	@note//_NOTES
+	@note This is the first step in the sorting process, and it is used to
+		calculate the price of each number.
+ */
+void			set_goal(t_stack_node *stack);
 
 /**
 	@brief #### Prints the stack
@@ -159,7 +172,8 @@ t_stack_node	*stack_last(t_stack_node *stack);
 		see `errors.h`.
 	@see `errors.h`
  */
-void			exit_on_error(int check[3], void *if_null, t_stack_node stacks[2]);
+void			exit_on_error(int check[3], void *if_null,
+					t_stack_node stacks[2]);
 
 //_--------------------------------------------------------------------------_//
 
