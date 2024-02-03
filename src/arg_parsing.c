@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:54:38 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/03 12:45:35 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/03 13:52:11 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	check_duplicate(t_stack_node stack[2], int num)
 	t_stack_node	*tmp;
 
 	tmp = &stack[A];
-	// if (!tmp->next)
-	// 	return ;
 	while (tmp)
 	{
 		if (tmp->num == num)
@@ -68,6 +66,6 @@ void	check_arg(char *argv, t_stack_node stack[2])
 	check_num(argv, stack);
 	check_int(argv, stack);
 	last = stack_last(&stack[A]);
-	if (last->index != -1)
+	if (last->index != START_INDEX - 1)
 		check_duplicate(stack, ft_atoi(argv));
 }

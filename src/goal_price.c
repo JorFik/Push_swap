@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:01:27 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/03 12:17:55 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/03 14:11:59 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,20 @@
 
 void	set_goal(t_stack_node *stack)
 {
-	int		lowest;
+	t_stack_node	*next_low;
+	static int		index = START_INDEX;
 
-	lowest = stack->num;
-	while (stack->next)
+	next_low = stack;
+	while (stack)
 	{
-		if (stack->next->num < lowest)
-			lowest = stack->next->num;
+		if ((stack->num < next_low->num && stack->goal == START_INDEX - 1)
+			|| next_low->goal != START_INDEX - 1)
+			next_low = stack;
 		stack = stack->next;
 	}
-	print_stack(stack_first(stack));
-	ft_printf("lowest: %d\n", lowest);
+	if (next_low->goal == START_INDEX - 1)
+	{
+		next_low->goal = index++;
+		set_goal(stack_first(next_low));
+	}
 }

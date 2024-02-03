@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:14:48 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/03 12:45:25 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/03 13:52:33 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	read_args(int argc, char **argv, t_stack_node stack[2])
 	check_arg(argv[--argc], stack);
 	stack[A].num = ft_atoi(argv[argc--]);
 	stack[A].index ++;
-	// add_node(&stack[A], ft_atoi(argv[argc--]));
 	while ((argc == 0 && split == 1) || argc > 0)
 	{
 		check_arg(argv[argc], stack);
@@ -43,16 +42,14 @@ static void	read_args(int argc, char **argv, t_stack_node stack[2])
 //! EREASE SYSTEM("LEAKS PUSH_SWAP" IN ERRORS.C)
 static void	initialize_stack(t_stack_node stack[2])
 {
-	const int		starting_index = 0;
-
 	stack[A].num = 0;
-	stack[A].index = starting_index - 1;
+	stack[A].index = START_INDEX - 1;
 	stack[A].goal = -1;
 	stack[A].price = -1;
 	stack[A].next = NULL;
 	stack[A].prev = NULL;
 	stack[B].num = 0;
-	stack[B].index = starting_index;
+	stack[B].index = START_INDEX;
 	stack[B].goal = -1;
 	stack[B].price = -1;
 	stack[B].next = NULL;
@@ -69,6 +66,7 @@ int	main(int argc, char **argv)
 	initialize_stack(stack);
 	read_args(argc, argv, stack);
 	set_goal(stack);
+	print_stack(&stack[A]);
 	exit_on_error((int [3]){SUCCESS, 0, 0}, NULL, stack);
 }
 

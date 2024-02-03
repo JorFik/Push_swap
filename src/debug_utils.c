@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:22:50 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/03 11:53:02 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/03 13:07:29 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	print_stack(t_stack_node *stack)
 {
+	ft_printf("num	index	goal\n");
 	while (stack)
 	{
-		ft_printf("%d	%d\n", stack->num, stack->index);
+		ft_printf("%d	%d	%d\n", stack->num, stack->index, stack->goal);
 		stack = stack->next;
 	}
 }
