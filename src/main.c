@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:14:48 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/03 13:52:33 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:16:28 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,14 @@ static void	initialize_stack(t_stack_node stack[2])
 	stack[A].index = START_INDEX - 1;
 	stack[A].goal = -1;
 	stack[A].price = -1;
+	stack[A].free = 0;
 	stack[A].next = NULL;
 	stack[A].prev = NULL;
 	stack[B].num = 0;
-	stack[B].index = START_INDEX;
+	stack[B].index = START_INDEX - 1;
 	stack[B].goal = -1;
 	stack[B].price = -1;
+	stack[B].free = 0;
 	stack[B].next = NULL;
 	stack[B].prev = NULL;
 }
@@ -65,8 +67,9 @@ int	main(int argc, char **argv)
 		return (NO_ARG);
 	initialize_stack(stack);
 	read_args(argc, argv, stack);
-	set_goal(stack);
-	print_stack(&stack[A]);
+	set_goal_a(stack);
+	check_stack(stack, EXIT);
+	sort(stack);
 	exit_on_error((int [3]){SUCCESS, 0, 0}, NULL, stack);
 }
 

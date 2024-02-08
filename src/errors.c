@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 14:14:05 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/03 11:43:49 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/06 13:42:47 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,23 @@ static void	free_stacks(t_stack_node stacks[2])
 {
 	t_stack_node	*stack;
 	t_stack_node	*tmp;
+	t_stack_node	*b;
 
-	stack = stack_last(&stacks[A]);
+	stack = stack_bottom(&stacks[A]);
+	b = stack_bottom(&stacks[B]);
 	while (stack->next)
 	{
 		tmp = stack->next;
 		stack->next = stack->next->next;
-		ft_free_n_null((void **)&tmp);
+		if (tmp->free)
+			ft_free_n_null((void **)&tmp);
 	}
-	stack = stack_last(&stacks[B]);
-	while (stack->next)
+	while (b->next)
 	{
-		tmp = stack->next;
-		stack->next = stack->next->next;
-		ft_free_n_null((void **)&tmp);
+		tmp = b->next;
+		b->next = b->next->next;
+		if (tmp->free)
+			ft_free_n_null((void **)&tmp);
 	}
 }
 
@@ -74,13 +77,11 @@ void	exit_on_error(int check[3], void *if_null, t_stack_node stacks[2])
 		write(STDERR_FILENO, "Error\n", 7);
 		ft_printf("%s %s\n", get_error(check[ERROR]), where(check[WHERE]));
 		free_stacks(stacks);
-		system("leaks push_swap");
 		exit(check[ERROR]);
 	}
 	if (check[STATE] == SUCCESS)
 	{
 		free_stacks(stacks);
-		system("leaks push_swap");
 		exit(0);
 	}
 }

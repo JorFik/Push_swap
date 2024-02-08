@@ -1,26 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug_utils.c                                      :+:      :+:    :+:   */
+/*   sort_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 19:22:50 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/06 20:10:47 by JFikents         ###   ########.fr       */
+/*   Created: 2024/02/06 12:09:37 by JFikents          #+#    #+#             */
+/*   Updated: 2024/02/08 12:45:04 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_stack(t_stack_node *stack)
+static t_stack_node	*get_cheapest(t_stack_node *stack)
 {
-	ft_printf("num	index	goal	price\n");
+	t_stack_node	*cheapest;
+
 	stack = stack_top(stack);
+	cheapest = stack;
 	while (stack)
 	{
-		ft_printf("%d	%d	%d	%d\n", stack->num, stack->index, stack->goal,
-			stack->price);
+		if (stack->price < cheapest->price)
+			cheapest = stack;
 		stack = stack->prev;
 	}
-	ft_printf("\n");
+	return (cheapest);
+}
+
+void	sort(t_stack_node *stack)
+{
+	move(stack, PB);
+	move(stack, PB);
+	move(stack, PB);
+	restart_goal(&stack[B]);
+	set_goal_b(&stack[B]);
+	restart_goal(stack);
+	set_goal_a(stack);
+	if (!check_order_b(&stack[B]))
+		move(stack, SB);
+	set_price(stack);
+	print_stack(stack);
+	print_stack(&stack[B]);
 }

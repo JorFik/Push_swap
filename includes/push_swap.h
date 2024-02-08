@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:14:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/03 13:51:34 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/07 18:19:01 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 //_--------------------------------------------------------------------------_//
 
 // ** ------------------------- MACROS AND ENUMS ------------------------- ** //
+
+//If changed here, adapt set_price accordingly
+# ifndef START_INDEX
+#  define START_INDEX 0
+# endif
 
 enum e_operations
 {
@@ -43,7 +48,15 @@ enum e_stacks
 {
 	A,
 	B,
-	START_INDEX = 0,
+	NUM,
+	GOAL,
+	REV_NUM,
+};
+
+enum e_exit_or_return
+{
+	RETURN,
+	EXIT,
 };
 
 //_--------------------------------------------------------------------------_//
@@ -71,6 +84,7 @@ typedef struct s_stack_node
 	int					index;
 	int					goal;
 	int					price;
+	int					free;
 	struct s_stack_node	*next;
 	struct s_stack_node	*prev;
 }				t_stack_node;
@@ -80,17 +94,150 @@ typedef struct s_stack_node
 // ** ---------------------------- FUNCTIONS ---------------------------- ** //
 
 /**
-	@brief #### Finds the ideal place for each number in the stack
+	@brief #### Finds the biggest number in the stack.
 	@note//_DESCRIPTION
-	@brief Goes through the stack and sets the `goal` variable to the index of
-		the number in the sorted stack.
+	@brief Looks for the biggest number in the `stack` and returns a copy of the
+		node containing it.
+	@note//_PARAMETERS
+	@param stack The stack to be checked.
+	@note//_RETURN
+	@return A copy of the node containing the biggest number in the stack.
+ */
+int				get_biggest(t_stack_node *stack);
+
+/**
+	@brief #### Checks if the stack is in descending order.
+	@note//_DESCRIPTION
+	@brief Checks if the `stack` is in descending order, by checking if the
+		`goal` is bigger than 'next->goal' for every node in the stack, except
+		for the biggest number, for it `next->goal` is `START_INDEX`.
+	@note//_PARAMETERS
+	@param stack The stack to be checked.
+	@note//_NOTES
+	@note notes
+	@note//_RETURN
+	@return description
+	@note//_WARNING
+	@warning warning
+ */
+int				check_order_b(t_stack_node *stack);
+
+/**
+	@brief #### Restarts the `goal` for each node in the stack.
+	@note//_DESCRIPTION
+	@brief Sets the `goal` for each node in the `stack` to `START_INDEX - 1`.
+	@note//_PARAMETERS
+	@param stack The stack to be restarted.
+ */
+void			restart_goal(t_stack_node *stack);
+
+/**
+	@brief #### Sets the goal for each node in descending order.
+	@note//_DESCRIPTION
+	@brief Sets the `goal` for each node in the `stack` in descending order.
+	@note//_PARAMETERS
+	@param stack The stack to be checked.
+ */
+void			set_goal_b(t_stack_node *stack);
+
+/**
+	@brief #### PENDING
+	@note//_DESCRIPTION
+	@brief PENDING
+	@note//_PARAMETERS
+	@param stack The stack to be sorted.
+	@note//_NOTES
+	@note PENDING
+ */
+void			sort(t_stack_node *stack);
+
+/**
+	@brief #### Sets the price for each node in the `stack[A]`
+	@note//_DESCRIPTION
+	@brief Sets the price for each node in the `stack[A]` based on the amount of
+		movements needed to reach the top of the stack.
+	@note//_PARAMETERS
+	@param stack The stack to set the price for.
+	@note//_WARNING
+	@warning Send `stack` at the bottom of the stack.
+	@note//_NOTES
+	@note The index starts from `START_INDEX` that is `0` in the bottom, prices
+		may vary if the index is different, but in theory the cheapest should be
+		the same regardless of the index.
+ */
+void			set_price(t_stack_node *stack);
+
+/**
+	@brief #### Pushes the top node of the `stack[A]` to the `stack[B]`.
+	@note//_DESCRIPTION
+	@brief Moves the top node of the `stack[A]` to the top of the `stack[B]` taking
+		into account if the node can be moved or if it needs to be copied.
+	@note//_PARAMETERS
+	@param stack The stacks to be modified.
+	@note//_NOTES
+	@note The function will not print the operation to the standard output that
+		is done by the `move` function.
+	@note If the node was copied the index will be set to `START_INDEX - 1`.
+ */
+void			push_b(t_stack_node stack[2]);
+
+/**
+	@brief #### Pushes the top node of `stack[B]` to `stack[A]`.
+	@note//_DESCRIPTION
+	@brief Moves the top node of the `stack[B]` to the top of the `stack[A]` taking
+		into account if the node can be moved or if it needs to be copied.
+	@note//_PARAMETERS
+	@param stack The stacks to be modified.
+	@note//_NOTES
+	@note The function will not print the operation to the standard output that
+		is done by the `move` function.
+	@note If the node was copied the index will be set to `START_INDEX - 1`.
+ */
+void			push_a(t_stack_node stack[2]);
+
+/**
+	@brief #### Applies the `cmd` to the stacks
+	@note//_DESCRIPTION
+	@brief Applies the command `cmd` to the stacks `stack` and prints the
+		operation to the standard output.
+	@note//_PARAMETERS
+	@param stack The stacks to be modified.
+	@param cmd The command to be applied to the stacks.
+	@note//_NOTES
+	@note The list of commands is defined in `e_operations` in `push_swap.h`.
+ */
+void			move(t_stack_node stack[2], int cmd);
+
+/**
+	@brief #### Checks if the stack is sorted
+	@note//_DESCRIPTION
+	@brief Checks if `stack->goal` is equal to `stack->index` for every node in
+		the stack. If it is and `exit` is set to `1`, the function frees the
+		stack and exits with code 0, else it returns 1 if the stack is sorted and
+		0 if it is not.
+	@note//_PARAMETERS
+	@param stack the stack to be checked.
+	@param exit The flag to select either if the function should exit or return
+		a value.
+	@note//_NOTES
+	@note The function will exit with code 0 if the stack is sorted and `exit`
+		is true. make sure to use it only after printing the operations.
+	@note//_RETURN
+	@return 1 if the stack is sorted, 0 if it is not.
+ */
+int				check_stack(t_stack_node *stack, int exit);
+
+/**
+	@brief #### Finds the ideal place for each number in the `stack[A]`
+	@note//_DESCRIPTION
+	@brief Goes through the `stack` and sets the `goal` variable to the index of
+		the number in the sorted `stack`.
 	@note//_PARAMETERS
 	@param stack The stack containing the numbers to be sorted.
 	@note//_NOTES
-	@note This is the first step in the sorting process, and it is used to
-		calculate the price of each number.
+	@note The sorted stack is the one that has the numbers in ascending order.
  */
-void			set_goal(t_stack_node *stack);
+void			set_goal_a(t_stack_node *stack);
 
 /**
 	@brief #### Prints the stack
@@ -131,26 +278,26 @@ void			add_node(t_stack_node *stack, int num);
 void			check_arg(char *argv, t_stack_node stack[2]);
 
 /**
-	@brief #### Get the first node of the stack
+	@brief #### Get the bottom node of the stack
 	@note//_DESCRIPTION
-	@brief Moves the pointer to the first node of the stack.
+	@brief Moves the pointer to the bottom node of the stack.
 	@note//_PARAMETERS
 	@param stack The address to check for a previous node.
 	@note//_RETURN
-	@return The address of the first node of the stack.
+	@return The address of the bottom node of the stack.
  */
-t_stack_node	*stack_first(t_stack_node *stack);
+t_stack_node	*stack_bottom(t_stack_node *stack);
 
 /**
-	@brief #### Gets the last node of the stack
+	@brief #### Gets the top node of the stack
 	@note//_DESCRIPTION
-	@brief Finds the last node of the stack and returns its address.
+	@brief Finds the top node of the stack and returns its address.
 	@note//_PARAMETERS
 	@param stack The address to check for a next node.
 	@note//_RETURN
-	@return The address of the last node of the stack.
+	@return The address of the top node of the stack.
  */
-t_stack_node	*stack_last(t_stack_node *stack);
+t_stack_node	*stack_top(t_stack_node *stack);
 
 /**
 	@brief #### Check for errors and exit the program if any is found
