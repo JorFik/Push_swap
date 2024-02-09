@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:01:27 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/08 13:12:08 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/09 18:45:36 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,10 @@ void	set_price(t_stack_node *stack)
 			stack->price = stack_top(stack)->index - stack->index + top->index
 				+ 1;
 		i = -1;
-		while (((half_a >= stack->index + ++i && half_b >= top->index + i)
-				|| (half_a < stack->index - i && half_b < top->index - i))
-			&& i < half_a && i < half_b && stack->price > 0)
-			stack->price --;
+		// while (((half_a >= stack->index + ++i && half_b >= top->index + i)
+		// 		|| (half_a < stack->index - i && half_b < top->index - i))
+		// 	&& i < half_a && i < half_b && stack->price > 0)
+		// 	stack->price --;
 		stack = stack->next;
 	}
 }

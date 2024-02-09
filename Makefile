@@ -6,7 +6,7 @@
 #    By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 21:57:25 by JFikents          #+#    #+#              #
-#    Updated: 2024/02/08 13:14:48 by JFikents         ###   ########.fr        #
+#    Updated: 2024/02/09 20:27:56 by JFikents         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -210,6 +210,7 @@ run : all
 
 git : fclean
 	@echo "	Preparring to save to git repository..."
+	@$(RM) imgui.ini
 	@git add .
 	@echo "	Added all files"
 	@echo "	Commit message:"
