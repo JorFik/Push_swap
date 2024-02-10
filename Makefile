@@ -6,7 +6,7 @@
 #    By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 21:57:25 by JFikents          #+#    #+#              #
-#    Updated: 2024/02/09 20:29:41 by JFikents         ###   ########.fr        #
+#    Updated: 2024/02/10 19:55:25 by JFikents         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ SRC_DIR = src/
 #_ NOTE: to every file in C_FILES, the path in SRC_DIR will be added at the
 #_ beginning
 C_FILES = main.c errors.c stack_operations.c debug_utils.c arg_parsing.c\
-	goal.c price.c move.c push.c sort_3.c checks.c
+	goal.c price.c move.c push.c sort.c checks.c find_moves.c
 
 # Here you can add the files that you need to compile that are not inside the
 # SRC_DIR

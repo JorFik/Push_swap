@@ -6,29 +6,43 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:09:49 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/07 15:36:00 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/09 21:00:10 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	get_biggest(t_stack_node *stack)
+int	get_biggest_num(t_stack_node *stack)
 {
-	int	biggest;
+	int	biggest_num;
 
-	biggest = stack->num;
+	biggest_num = stack->num;
 	while (stack)
 	{
-		if (stack->num > biggest)
-			biggest = stack->num;
+		if (stack->num > biggest_num)
+			biggest_num = stack->num;
 		stack = stack->next;
 	}
-	return (biggest);
+	return (biggest_num);
+}
+
+int	get_smallest_num(t_stack_node *stack)
+{
+	int	smallest_num;
+
+	smallest_num = stack->num;
+	while (stack)
+	{
+		if (stack->num < smallest_num)
+			smallest_num = stack->num;
+		stack = stack->next;
+	}
+	return (smallest_num);
 }
 
 int	check_order_b(t_stack_node *stack)
 {
-	const int	biggest = get_biggest(stack);
+	const int	biggest = get_biggest_num(stack);
 
 	stack = stack_bottom(stack);
 	while (stack->next)
@@ -43,7 +57,7 @@ int	check_order_b(t_stack_node *stack)
 
 int	check_order_a(t_stack_node *stack)
 {
-	const int	biggest = get_biggest(stack);
+	const int	biggest = get_biggest_num(stack);
 
 	stack = stack_bottom(stack);
 	while (stack->next)

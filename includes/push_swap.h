@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:14:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/07 18:19:01 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/10 19:08:03 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,51 @@ typedef struct s_stack_node
 // ** ---------------------------- FUNCTIONS ---------------------------- ** //
 
 /**
-	@brief #### Finds the biggest number in the stack.
+	@brief #### Find the perfect match for node in `stack[A]`
 	@note//_DESCRIPTION
-	@brief Looks for the biggest number in the `stack` and returns a copy of the
-		node containing it.
+	@brief Looks for the biggest number in `stack[B]` that is smaller than
+		`stack->num` or the biggest number in `stack[B]` if `stack->num` is
+		smaller than the smallest number in `stack[B]`.
+	@note//_PARAMETERS
+	@param stack The node address to be matched.
+	@param max_index_a The index of the top node in `stack[A]` that is the
+		biggest index in `stack[A]`.
+	@param top_match The pointer to save the match from `stack[B]`.
+	@note//_RETURN
+	@return The pointer to the node in `stack[B]` that is the best match for
+		`stack`.
+ */
+t_stack_node	*find_closest_biggest(t_stack_node *stack,
+					const int max_index_a);
+
+/**
+	@brief #### Gets the smallest number in the stack.
+	@note//_DESCRIPTION
+	@brief Goes through the `stack` and returns the smallest number in it.
 	@note//_PARAMETERS
 	@param stack The stack to be checked.
 	@note//_RETURN
-	@return A copy of the node containing the biggest number in the stack.
+	@return The smallest `stack->num` value in the stack.
+	@note The function will start from where you are in the stack, so make sure
+		to send the pointer to the bottom of the stack if you want to check the
+		entire stack.
  */
-int				get_biggest(t_stack_node *stack);
+int				get_smallest_num(t_stack_node *stack);
+
+/**
+	@brief #### Gets the biggest number in the stack.
+	@note//_DESCRIPTION
+	@brief Looks for the biggest `stack->num` value in `stack` and returns it.
+	@note//_PARAMETERS
+	@param stack The stack to be checked.
+	@note//_RETURN
+	@return The biggest `stack->num` value in the stack.
+	@note//_NOTES
+	@note The function will start from where you are in the stack, so make sure
+		to send the pointer to the bottom of the stack if you want to check the
+		entire stack. 
+ */
+int				get_biggest_num(t_stack_node *stack);
 
 /**
 	@brief #### Checks if the stack is in descending order.
