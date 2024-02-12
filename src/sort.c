@@ -6,13 +6,29 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 12:09:37 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/12 16:38:09 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 20:15:19 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	put_in_order(t_stack_node *stack)
+// static void	swap_stacks(t_stack_node *stack)
+// {
+// 	stack[A].num = stack[A].num ^ stack[B].num;
+// 	stack[B].num = stack[A].num ^ stack[B].num;
+// 	stack[A].num = stack[A].num ^ stack[B].num;
+// 	stack[A].goal = stack[A].goal ^ stack[B].goal;
+// 	stack[B].goal = stack[A].goal ^ stack[B].goal;
+// 	stack[A].goal = stack[A].goal ^ stack[B].goal;
+// 	stack[A].price = stack[A].price ^ stack[B].price;
+// 	stack[B].price = stack[A].price ^ stack[B].price;
+// 	stack[A].price = stack[A].price ^ stack[B].price;
+// 	stack[A].next = ((int)stack[A].next ^ (int)stack[B].next);
+// 	stack[B].next = ((int)stack[A].next ^ (int)stack[B].next);
+// 	stack[A].next = ((int)stack[A].next ^ (int)stack[B].next);
+// }
+
+static void	put_small_on_top(t_stack_node *stack)
 {
 	const int		half_a = stack_top(stack)->index / 2;
 	const int		smallest = get_smallest_num(stack);
@@ -50,5 +66,5 @@ void	sort(t_stack_node *stack)
 	find_moves(stack);
 	while (stack[B].index != -1)
 		move(stack, PA);
-	put_in_order(stack);
+	put_small_on_top(stack);
 }

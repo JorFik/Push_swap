@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:38:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/12 17:35:58 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 20:38:48 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,27 +80,22 @@ static void	discount_moves(t_stack_node *stack, t_stack_node *top,
 	const int max_index_a, const int max_index_b)
 {
 	int			i;
-	int			big_half;
 	const int	half_a = max_index_a / 2;
 	const int	half_b = max_index_b / 2;
+	int			relative_index_a;
+	int			relative_index_b;
 
-	big_half = half_a;
-	if (half_b > half_a)
-		big_half = half_b;
 	i = -1;
-	while (++i < half_a && i < half_b && stack->index != max_index_a
-		&& top->index != max_index_b && ((stack->index == 0 && top->index == 0)
-			|| (stack->index != 0 && top->index != 0)))
+	relative_index_a = max_index_a - stack->index;
+	relative_index_b = max_index_b - top->index;
+	while (++i && stack->index != max_index_a
+		&& top->index != max_index_b && relative_index_a == relative_index_b)
 	{
-		if ((max_index_a - stack->index == max_index_b - top->index
-				&& ((big_half == half_b && half_b >= top->index + i)
-					|| (big_half == half_a && half_a >= stack->index + i)))
-			|| (half_a >= stack->index + i && half_b >= top->index + i))
+		relative_index_a = max_index_a - stack->index;
+		relative_index_b = max_index_b - top->index;
+		if (relative_index_a > half_a)
 			move(stack, RRR);
-		else if ((max_index_a - stack->index == max_index_b - top->index
-				&& ((big_half == half_b && half_b <= top->index + i)
-					|| (big_half == half_a && half_a <= stack->index + i)))
-			|| (half_a <= stack->index - i && half_b <= top->index - i))
+		if (relative_index_a <= half_a)
 			move(stack, RR);
 	}
 }

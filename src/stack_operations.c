@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:36:03 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/11 16:51:04 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:31:09 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	add_node(t_stack_node *stack, int num)
 	node->goal = START_INDEX - 1;
 	node->price = -1;
 	node->free = 1;
+	node->moves = NULL;
 	node->prev = last;
 	node->next = NULL;
 }

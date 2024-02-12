@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 14:14:05 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/06 13:42:47 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:38:15 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,21 @@ static char	*where(int where)
 		return ("while reading the arguments");
 	if (where == N_NODE)
 		return ("while creating a new node");
+	if (where == N_MOVE)
+		return ("while saving new move");
 	return ("in unknown location");
+}
+
+static void	free_moves(t_moves *moves)
+{
+	t_moves	*tmp;
+
+	while (moves)
+	{
+		tmp = moves;
+		moves = moves->next;
+		ft_free_n_null((void **)&tmp);
+	}
 }
 
 static void	free_stacks(t_stack_node stacks[2])
@@ -53,6 +67,7 @@ static void	free_stacks(t_stack_node stacks[2])
 	t_stack_node	*b;
 
 	stack = stack_bottom(&stacks[A]);
+	free_moves(stack->moves);
 	b = stack_bottom(&stacks[B]);
 	while (stack->next)
 	{

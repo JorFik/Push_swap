@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:14:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/12 16:32:46 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 20:27:22 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@
 #  define START_INDEX 0
 # endif
 
+enum e_rs
+{
+	RAS,
+	RRAS,
+	RBS,
+	RRBS,
+};
+
 enum e_operations
 {
 	SA,
@@ -41,7 +49,8 @@ enum e_operations
 	RR,
 	RRA,
 	RRB,
-	RRR
+	RRR,
+	NONE
 };
 
 enum e_stacks
@@ -63,6 +72,24 @@ enum e_exit_or_return
 //_--------------------------------------------------------------------------_//
 
 // ** ------------------------- DATA STRUCTURES ------------------------- ** //
+
+/**
+	@brief #### The moves needed to sort the stack
+	@note//_DESCRIPTION
+	@brief A linked list containing the moves needed to sort the stack.
+	@note//_PARAMETERS
+	@param cmd The move to be done.
+	@param next Pointer to the next move in the list.
+	@param prev Pointer to the previous move in the list.
+	@note//_WARNING
+	@warning Every node is allocated dynamically and must be freed after use.
+ */
+typedef struct s_moves
+{
+	enum e_operations	cmd;
+	struct s_moves		*next;
+	struct s_moves		*prev;
+}				t_moves;
 
 /**
 	@brief #### Node Stack structure
@@ -87,6 +114,7 @@ typedef struct s_stack_node
 	int					goal;
 	int					price;
 	int					free;
+	t_moves				*moves;
 	struct s_stack_node	*next;
 	struct s_stack_node	*prev;
 }				t_stack_node;
@@ -94,6 +122,40 @@ typedef struct s_stack_node
 //_--------------------------------------------------------------------------_//
 
 // ** ---------------------------- FUNCTIONS ---------------------------- ** //
+
+/**
+	@brief #### Checks if moves can be avoided and then applies them
+	@note//_DESCRIPTION
+	@brief Checks if the moves in `stack->moves` contain any `RA` and `RB` or
+		`RRA` and `RRB` together, if they do, it changes them to `RR` and `RRR`
+		respectively. Then applies the moves to the stack.
+	@note//_PARAMETERS
+	@param stack The structure containing everythig needed to sort the stack.
+ */
+void			do_moves(t_stack_node *stack);
+
+/**
+	@brief #### Adds the commmand in the `stack->moves` linked list.
+	@note//_DESCRIPTION
+	@brief Creates a new node with the command `command` and adds it to the
+		`stack->moves` linked list.
+	@note//_PARAMETERS
+	@param stack The stack containing the moves list.
+	@note//_WARNING
+	@warning Every node is allocated dynamically and must be freed after use.
+ */
+void			add_move(t_stack_node *stack, int command);
+
+/**
+	@brief #### Checks if the stack is in ascending order.
+	@note//_DESCRIPTION
+	@brief Checks if the `stack` is in ascending order, by checking if the
+		`goal` is smaller than 'next->goal' for every node in the stack, except
+		for the smallest number, for it `next->goal` is `START_INDEX`.
+	@note//_PARAMETERS
+	@param stack The stack to be checked.
+ */
+int				check_order_a(t_stack_node *stack);
 
 /**
 	@brief #### Does the best moves to sort the stack
@@ -164,12 +226,6 @@ int				get_biggest_num(t_stack_node *stack);
 		for the biggest number, for it `next->goal` is `START_INDEX`.
 	@note//_PARAMETERS
 	@param stack The stack to be checked.
-	@note//_NOTES
-	@note notes
-	@note//_RETURN
-	@return description
-	@note//_WARNING
-	@warning warning
  */
 int				check_order_b(t_stack_node *stack);
 

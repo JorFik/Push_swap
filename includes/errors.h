@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 14:59:40 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/02 20:15:44 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:34:34 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ enum e_where
 	STACK_B,
 	ARG,
 	READ_ARGS,
-	N_NODE
+	N_NODE,
+	N_MOVE,
 };
 
 enum e_check

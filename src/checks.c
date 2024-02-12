@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:09:49 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/09 21:00:10 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:20:27 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ int	check_order_b(t_stack_node *stack)
 
 int	check_order_a(t_stack_node *stack)
 {
-	const int	biggest = get_biggest_num(stack);
+	const int	smallest = get_smallest_num(stack);
 
 	stack = stack_bottom(stack);
 	while (stack->next)
 	{
-		if ((stack->goal < stack->next->goal && stack->num != biggest)
-			|| (stack->next->goal == START_INDEX && stack->num == biggest))
+		if ((stack->goal < stack->next->goal && stack->num != smallest)
+			|| (stack->next->goal == START_INDEX && stack->num == smallest))
 			return (0);
 		stack = stack->next;
 	}
