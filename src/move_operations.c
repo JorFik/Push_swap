@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 19:26:44 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/12 20:35:53 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 22:19:26 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	add_move(t_stack_node *stack, int command)
 	move->next->next = NULL;
 }
 
-void	r_count(t_moves *moves, int *rs)
+static void	r_count(t_moves *moves, int *rs)
 {
 	rs[RAS] = 0;
 	rs[RRAS] = 0;
 	rs[RBS] = 0;
 	rs[RRBS] = 0;
-	while (moves && moves->cmd == RA || moves->cmd == RB
-		|| moves->cmd == RRA || moves->cmd == RRB)
+	while (moves && (moves->cmd == RA || moves->cmd == RB
+			|| moves->cmd == RRA || moves->cmd == RRB))
 	{
 		if (moves->cmd == RA)
 			rs[RAS]++;
@@ -58,6 +58,28 @@ void	r_count(t_moves *moves, int *rs)
 	}
 }
 
+static void	jump_moves(t_moves *moves, int cmd)
+{
+	if (cmd == RR)
+	{
+		while (moves->cmd != RA)
+			moves = moves->next;
+		moves->cmd = RR;
+		while (moves->cmd != RB)
+			moves = moves->next;
+		moves->cmd = NONE;
+	}
+	else if (cmd == RRR)
+	{
+		while (moves->cmd != RRA)
+			moves = moves->next;
+		moves->cmd = RRR;
+		while (moves->cmd != RRB)
+			moves = moves->next;
+		moves->cmd = NONE;
+	}
+}
+
 void	do_moves(t_stack_node *stack)
 {
 	t_moves	*moves;
@@ -67,21 +89,12 @@ void	do_moves(t_stack_node *stack)
 	while (moves)
 	{
 		r_count(moves, rs);
-		if (rs[RAS] == rs[RBS])
-		{
-			while (rs[RAS]--)
-				move(stack, RR);
-			while (moves->cmd == RA || moves->cmd == RB)
-				moves = moves->next;
-		}
-		if (rs[RRAS] == rs[RRBS])
-		{
-			while (rs[RRAS]--)
-				move(stack, RRR);
-			while (moves->cmd == RRA || moves->cmd == RRB)
-				moves = moves->next;
-		}
+		while (rs[RAS] > 0 && rs[RBS] > 0 && rs[RAS]-- && rs[RBS]--)
+			jump_moves(moves, RR);
+		while (rs[RRAS] > 0 && rs[RRBS] > 0 && rs[RRAS]-- && rs[RRBS]--)
+			jump_moves(moves, RRR);
 		move(stack, moves->cmd);
 		moves = moves->next;
 	}
+	free_moves(&stack->moves);
 }

@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:38:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/12 20:38:48 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 21:38:12 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,27 @@ static void	move_to_top(t_stack_node *stack, const t_stack_node *cheap_node,
 	const int		top_num = top_node->num;
 	const int		half_a = stack_top(stack)->index / 2;
 	const int		half_b = stack_top(&stack[B])->index / 2;
+	int				distance;
 
+	distance = stack_top(stack)->index - cheap_node->index;
+	if (cheap_node->index < half_a)
+		distance = cheap_node->index + 1;
 	if (cheap_node->index >= half_a)
-		while (stack_top(stack)->num != cheap_num)
-			move(stack, RA);
+		while (distance--)
+			add_move(stack, RA);
 	else if (cheap_node->index < half_a)
-		while (stack_top(stack)->num != cheap_num)
-			move(stack, RRA);
+		while (distance--)
+			add_move(stack, RRA);
+	distance = stack_top(&stack[B])->index - top_node->index;
+	if (top_node->index < half_b)
+		distance = top_node->index + 1;
 	if (top_node->index >= half_b)
-		while (stack_top(&stack[B])->num != top_num)
-			move(stack, RB);
+		while (distance--)
+			add_move(stack, RB);
 	else if (top_node->index < half_b)
-		while (stack_top(&stack[B])->num != top_num)
-			move(stack, RRB);
+		while (distance--)
+			add_move(stack, RRB);
+	do_moves(stack);
 }
 
 //	This 'if' checks two main conditions:

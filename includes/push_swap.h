@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:14:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/12 20:27:22 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 21:12:51 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,15 @@ typedef struct s_stack_node
 //_--------------------------------------------------------------------------_//
 
 // ** ---------------------------- FUNCTIONS ---------------------------- ** //
+
+/**
+	@brief #### Frees the moves list
+	@note//_DESCRIPTION
+	@brief Goes through the `moves` list and frees every node in it.
+	@note//_PARAMETERS
+	@param moves The moves list to be freed.
+ */
+void			free_moves(t_moves **moves);
 
 /**
 	@brief #### Checks if moves can be avoided and then applies them
