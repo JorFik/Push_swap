@@ -6,7 +6,7 @@
 #    By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 21:57:25 by JFikents          #+#    #+#              #
-#    Updated: 2024/02/10 19:55:25 by JFikents         ###   ########.fr        #
+#    Updated: 2024/02/12 16:58:14 by JFikents         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,7 @@ SRC +=
 # * ----------------------------- DEBUG AREA ------------------------------ * #
 
 # Set OPTIMIZATION to 0 for a proper debug
-OPTIMIZATION = 0
+OPTIMIZATION = 1
 
 # To debug your program, just call the rule debug
 # It will compile your program with the flag -g and move the executable to the
@@ -206,7 +206,7 @@ a_files: submodule $(LIBRARIES_DIR)
 run : all
 	@echo "	arg?"
 	@read arg; \
-		./$(NAME) $$arg
+		./$(NAME) $$arg | ./checker_Mac_42 $$arg
 
 git : fclean
 	@echo "	Preparring to save to git repository..."

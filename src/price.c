@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:33:29 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/10 19:37:44 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/11 18:59:16 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static void	get_discount(t_stack_node *stack, t_stack_node *top,
 			|| (half_a <= stack->index - i && half_b <= top->index - i)
 			|| max_index_a - stack->index == max_index_b - top->index)
 		&& i < half_a && i < half_b && stack->index != max_index_a
-		&& top->index != max_index_b)
+		&& top->index != max_index_b && ((stack->index == 0 && top->index == 0)
+			|| (stack->index != 0 && top->index != 0)))
 		stack->price --;
 }
 

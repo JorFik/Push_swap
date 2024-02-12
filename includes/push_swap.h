@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:14:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/10 19:08:03 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:32:46 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ enum e_stacks
 {
 	A,
 	B,
-	NUM,
-	GOAL,
-	REV_NUM,
+	PRE_NUM,
+	PRE_GOAL,
+	NXT_NUM,
+	NXT_GOAL,
 };
 
 enum e_exit_or_return
@@ -73,6 +74,7 @@ enum e_exit_or_return
 	@param index Index of the node in the stack.
 	@param goal Index of the node in the sorted stack.
 	@param price Amount of movements for the node to reach the goal.
+	@param free Flag to check if the node should be freed.
 	@param next Pointer to the next node in the stack.
 	@param prev Pointer to the previous node in the stack.
 	@note//_WARNING
@@ -92,6 +94,20 @@ typedef struct s_stack_node
 //_--------------------------------------------------------------------------_//
 
 // ** ---------------------------- FUNCTIONS ---------------------------- ** //
+
+/**
+	@brief #### Does the best moves to sort the stack
+	@note//_DESCRIPTION
+	@brief Uses the smallest price node in `stack[A]` to find the moves to sort
+		the `stack`.
+	@note//_PARAMETERS
+	@param stack The stacks to be sorted.
+	@note//_NOTES
+	@note If there is more than one node with the same price, there are priority
+		rules to choose the best node to be moved, check `get_cheapest` comments
+		in `find_moves.c` for more information.
+ */
+void			find_moves(t_stack_node *stack);
 
 /**
 	@brief #### Find the perfect match for node in `stack[A]`
@@ -241,7 +257,7 @@ void			push_a(t_stack_node stack[2]);
 	@note//_NOTES
 	@note The list of commands is defined in `e_operations` in `push_swap.h`.
  */
-void			move(t_stack_node stack[2], int cmd);
+void			move(t_stack_node *stack, int cmd);
 
 /**
 	@brief #### Checks if the stack is sorted

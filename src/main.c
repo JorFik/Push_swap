@@ -6,13 +6,12 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:14:48 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/06 15:16:28 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:38:51 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//! EREASE SYSTEM("LEAKS PUSH_SWAP" IN ERRORS.C)
 static void	read_args(int argc, char **argv, t_stack_node stack[2])
 {
 	int	split;
@@ -39,7 +38,6 @@ static void	read_args(int argc, char **argv, t_stack_node stack[2])
 		ft_free_2d_array((void ***)&argv, -1);
 }
 
-//! EREASE SYSTEM("LEAKS PUSH_SWAP" IN ERRORS.C)
 static void	initialize_stack(t_stack_node stack[2])
 {
 	stack[A].num = 0;
@@ -58,7 +56,6 @@ static void	initialize_stack(t_stack_node stack[2])
 	stack[B].prev = NULL;
 }
 
-//! EREASE SYSTEM("LEAKS PUSH_SWAP" IN ERRORS.C)
 int	main(int argc, char **argv)
 {
 	t_stack_node	stack[2];
