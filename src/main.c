@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:14:48 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/12 16:38:51 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:30:37 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,20 @@ static void	read_args(int argc, char **argv, t_stack_node stack[2])
 
 static void	initialize_stack(t_stack_node stack[2])
 {
-	stack[A].num = 0;
-	stack[A].index = START_INDEX - 1;
-	stack[A].goal = -1;
-	stack[A].price = -1;
-	stack[A].free = 0;
-	stack[A].next = NULL;
-	stack[A].prev = NULL;
-	stack[B].num = 0;
-	stack[B].index = START_INDEX - 1;
-	stack[B].goal = -1;
-	stack[B].price = -1;
-	stack[B].free = 0;
-	stack[B].next = NULL;
-	stack[B].prev = NULL;
+	enum e_stacks	i;
+
+	i = A;
+	while (i <= B)
+	{
+		stack[i].num = 0;
+		stack[i].index = START_INDEX - 1;
+		stack[i].goal = -1;
+		stack[i].price = -1;
+		stack[i].free = 0;
+		stack[i].next = NULL;
+		stack[i].prev = NULL;
+		i++;
+	}
 }
 
 int	main(int argc, char **argv)

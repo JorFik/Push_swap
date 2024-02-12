@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:38:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/12 16:31:02 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:35:58 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ static void	move_to_top(t_stack_node *stack, const t_stack_node *cheap_node,
 //		b. If current stack's num is less than cheapest's num.
 //	If any of these conditions is true, the cheapest is updated to the current
 //	stack node.
+// ! Aparenttly this is making it worse, so I'll comment it out for now.
+			// || (stack->price == cheapest->price
+			// 	&& ((top_match->num == big_num_b && stack->num > cheapest->num)
+			// 		|| stack->num < cheapest->num)))
 static t_stack_node	*get_cheapest(t_stack_node *stack)
 {
 	t_stack_node	*cheapest;
@@ -57,9 +61,7 @@ static t_stack_node	*get_cheapest(t_stack_node *stack)
 	while (stack)
 	{
 		top_match = find_closest_biggest(stack, stack_top(stack)->index);
-		if (stack->price < cheapest->price || (stack->price == cheapest->price
-				&& ((top_match->num == big_num_b && stack->num > cheapest->num)
-					|| stack->num < cheapest->num)))
+		if (stack->price < cheapest->price)
 			cheapest = stack;
 		stack = stack->prev;
 	}
