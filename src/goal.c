@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:01:27 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/13 17:09:43 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/13 17:47:10 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,3 @@ void	set_goal_b(t_stack_node *stack)
 	}
 	index = START_INDEX;
 }
-
