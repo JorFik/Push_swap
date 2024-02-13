@@ -6,22 +6,19 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:33:29 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/11 18:59:16 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:21:17 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 /*
+				_This function is legacy, it has no use now_
 		Loop while both stacks can move to the top of the stack at the same
 	time, indicating that a single operation like 'ss', 'rr', or 'rrr' can be
 	applied to both. This allows a discount of 1 from the price. The loop
 	continues until 'i' is equal or bigger than half of any of the stacks and
 	neither stack's index has reached the top of the stack.
-!		Maybe there is a problem because of the mismatch of >= and <= in
-!	comparison with set_price function. Shouldn't be a problem, because for the
-!	middle of the stack is irrelevant if it moves from the top or from the
-!	bottom.
 */
 static void	get_discount(t_stack_node *stack, t_stack_node *top,
 	const int max_index_a, const int max_index_b)
@@ -34,9 +31,7 @@ static void	get_discount(t_stack_node *stack, t_stack_node *top,
 	while (((half_a >= stack->index + ++i && half_b >= top->index + i)
 			|| (half_a <= stack->index - i && half_b <= top->index - i)
 			|| max_index_a - stack->index == max_index_b - top->index)
-		&& i < half_a && i < half_b && stack->index != max_index_a
-		&& top->index != max_index_b && ((stack->index == 0 && top->index == 0)
-			|| (stack->index != 0 && top->index != 0)))
+		&& i < half_a && i < half_b)
 		stack->price --;
 }
 
@@ -92,7 +87,6 @@ void	set_price(t_stack_node *stack)
 				- top_match->index;
 		if (half_a <= stack->index && half_b > top_match->index)
 			stack->price = max_index_a - stack->index + top_match->index + 1;
-		get_discount(stack, top_match, max_index_a, max_index_b);
 		stack = stack->next;
 	}
 }

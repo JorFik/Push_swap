@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:14:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/13 17:37:51 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:28:47 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,15 @@ typedef struct s_stack_node
 //_--------------------------------------------------------------------------_//
 
 // ** ---------------------------- FUNCTIONS ---------------------------- ** //
+
+/**
+	@brief #### Swaps `stack[A]` and `stack[B]`
+	@note//_DESCRIPTION
+	@brief Swaps all the contents of `stack[A]` and `stack[B]`.
+	@note//_PARAMETERS
+	@param stack The pointer to the stacks to be swapped.
+ */
+void			swap_stacks(t_stack_node *stack);
 
 /**
 	@brief #### Prints the command to the standard output

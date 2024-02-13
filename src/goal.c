@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:01:27 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/13 17:47:10 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/13 17:52:22 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,6 @@ void	restart_goal(t_stack_node *stack)
 	set_goal_a(stack);
 	set_goal_b(&stack[B]);
 }
-	// stack = stack_bottom(stack);
-	// while (stack)
-	// {
-	// 	stack->goal = START_INDEX - 1;
-	// 	stack = stack->next;
-	// }
 
 void	set_goal_a(t_stack_node *stack)
 {

@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:38:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/13 12:49:51 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:12:35 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	move_to_top(t_stack_node *stack, const t_stack_node *cheap_node,
 	do_moves(stack);
 }
 
+//	_This comment is not relevant anymore
 //	This 'if' checks two main conditions:
 //	1. If current stack's price is less than the cheapest one found so far.
 //									OR
@@ -54,10 +55,6 @@ static void	move_to_top(t_stack_node *stack, const t_stack_node *cheap_node,
 //		b. If current stack's num is less than cheapest's num.
 //	If any of these conditions is true, the cheapest is updated to the current
 //	stack node.
-// ! Aparenttly this is making it worse, so I'll comment it out for now.
-			// || (stack->price == cheapest->price
-			// 	&& ((top_match->num == big_num_b && stack->num > cheapest->num)
-			// 		|| stack->num < cheapest->num)))
 static t_stack_node	*get_cheapest(t_stack_node *stack)
 {
 	t_stack_node	*cheapest;
