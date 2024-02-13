@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:33:06 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/12 15:36:10 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/13 17:06:15 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,12 @@ static void	swap(t_stack_node *stack, int cmd)
 		ft_printf("sb\n");
 }
 
-static void	rotate(t_stack_node stack[2], int cmd)
+static void	rotate(t_stack_node stack[2], int cmd, int rev)
 {
+	if (rev && cmd == RA)
+		cmd = RB;
+	if (rev && cmd == RB)
+		cmd = RA;
 	if ((cmd == RA || cmd == RR))
 		stack = stack_top(stack);
 	while (stack->prev && (cmd == RA || cmd == RR))
@@ -86,8 +90,12 @@ static void	rotate(t_stack_node stack[2], int cmd)
 		ft_printf("rb\n");
 }
 
-static void	reverse_rotate(t_stack_node stack[2], int cmd)
+static void	reverse_rotate(t_stack_node stack[2], int cmd, int rev)
 {
+	if (rev && cmd == RRA)
+		cmd = RRB;
+	if (rev && cmd == RRB)
+		cmd = RRA;
 	stack = stack_bottom(stack);
 	while (stack->next && (cmd == RRA || cmd == RRR))
 	{
@@ -112,6 +120,10 @@ static void	reverse_rotate(t_stack_node stack[2], int cmd)
 
 void	move(t_stack_node *stack, int cmd)
 {
+	static int	rev = 0;
+
+	if (cmd == REV)
+		rev = !rev;
 	stack = stack_bottom(stack);
 	if (cmd >= SA && cmd <= SS)
 		swap(stack_top(stack), cmd);
@@ -126,7 +138,7 @@ void	move(t_stack_node *stack, int cmd)
 		ft_printf("pb\n");
 	}
 	if (cmd >= RA && cmd <= RR)
-		rotate(stack, cmd);
+		rotate(stack, cmd, rev);
 	if (cmd >= RRA && cmd <= RRR)
-		reverse_rotate(stack, cmd);
+		reverse_rotate(stack, cmd, rev);
 }

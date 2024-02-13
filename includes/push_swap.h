@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:14:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/12 21:12:51 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/13 17:37:51 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ enum e_operations
 	RRA,
 	RRB,
 	RRR,
-	NONE
+	NONE,
+	REV
 };
 
 enum e_stacks
@@ -122,6 +123,19 @@ typedef struct s_stack_node
 //_--------------------------------------------------------------------------_//
 
 // ** ---------------------------- FUNCTIONS ---------------------------- ** //
+
+/**
+	@brief #### Prints the command to the standard output
+	@note//_DESCRIPTION
+	@brief Checks in the `e_operations` enum and prints the corresponding
+		command to the standard output.
+	@note//_PARAMETERS
+	@param cmd The `int` value of the command to be printed.
+	@note//_NOTES
+	@note This function is used for debugging purposes, and it is not part of
+		the final program.
+ */
+void			print_cmd(int cmd);
 
 /**
 	@brief #### Frees the moves list

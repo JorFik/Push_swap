@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 20:38:02 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/12 21:38:12 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:49:51 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,48 +76,11 @@ static t_stack_node	*get_cheapest(t_stack_node *stack)
 	return (cheapest);
 }
 
-/*
-		Uses either 'RR' or 'RRR' operation to move both stacks to the top of the
-	stack, taking into account the discount conditions. If `max_index_a` -
-	`stack->index` equals `max_index_b` - `top->index`, we use the bigger half
-	of the stack to know if we should move the stack using 'RR' or 'RRR'.
-		Else, we check if we can move both to the top of the stack using the
-	same operation, even if the stacks are not at the same distance.
-*/
-static void	discount_moves(t_stack_node *stack, t_stack_node *top,
-	const int max_index_a, const int max_index_b)
-{
-	int			i;
-	const int	half_a = max_index_a / 2;
-	const int	half_b = max_index_b / 2;
-	int			relative_index_a;
-	int			relative_index_b;
-
-	i = -1;
-	relative_index_a = max_index_a - stack->index;
-	relative_index_b = max_index_b - top->index;
-	while (++i && stack->index != max_index_a
-		&& top->index != max_index_b && relative_index_a == relative_index_b)
-	{
-		relative_index_a = max_index_a - stack->index;
-		relative_index_b = max_index_b - top->index;
-		if (relative_index_a > half_a)
-			move(stack, RRR);
-		if (relative_index_a <= half_a)
-			move(stack, RR);
-	}
-}
-
 void	find_moves(t_stack_node *stack)
 {
 	t_stack_node	*cheapest;
 	t_stack_node	*top_match;
 
-	cheapest = get_cheapest(stack);
-	top_match = find_closest_biggest(cheapest, stack_top(stack)->index);
-	discount_moves((t_stack_node *)cheapest, (t_stack_node *)top_match,
-		stack_top(stack)->index, stack_top(&stack[B])->index);
-	set_price(stack);
 	cheapest = get_cheapest(stack);
 	top_match = find_closest_biggest(cheapest, stack_top(stack)->index);
 	move_to_top(stack, cheapest, top_match);
