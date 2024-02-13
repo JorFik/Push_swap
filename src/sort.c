@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 12:09:37 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/13 21:19:34 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/13 21:21:05 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	sort_5(t_stack_node *stack)
 	exit_on_error((int [3]){SUCCESS, 0, 0}, NULL, stack);
 }
 
-void	push_back(t_stack_node *stack)
+static void	push_back(t_stack_node *stack)
 {
 	int				match;
 	int				index;
