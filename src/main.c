@@ -6,7 +6,7 @@
 /*   By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:14:48 by JFikents          #+#    #+#             */
-/*   Updated: 2024/02/13 17:37:40 by JFikents         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:22:40 by JFikents         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ static void	read_args(int argc, char **argv, t_stack_node stack[2])
 		exit_on_error((int [3]){IF_NULL, MALLOC_FAIL, READ_ARGS}, argv, stack);
 		split = 1;
 		argc = 0;
-		while (argv[argc])
+		while (argv && argv[argc])
 			argc++;
 	}
+	if (argv == NULL || argc == 0)
+		exit_on_error((int [3]){SUCCESS, 0, 0}, NULL, stack);
 	check_arg(argv[--argc], stack);
 	stack[A].num = ft_atoi(argv[argc--]);
 	stack[A].index ++;

@@ -6,7 +6,7 @@
 #    By: JFikents <JFikents@student.42Heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 21:57:25 by JFikents          #+#    #+#              #
-#    Updated: 2024/02/12 19:43:15 by JFikents         ###   ########.fr        #
+#    Updated: 2024/02/14 17:08:51 by JFikents         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,11 +29,11 @@ default_target: all
 # ? -------------------------- DO YOU HAVE BONUS? -------------------------- ? #
 # If you have bonus, change the value of the variable BONUS to 1 and add the
 #  bonus files to the variable BONUS_FILES
-BONUS = 1
+BONUS = 0
 BONUS_FILES = 
 # If it compiles together with the rest of the files, change the value of the
 # variable COMPILE_TOGETHER to 1
-COMPILE_TOGETHER = 1
+COMPILE_TOGETHER = 0
 #_----------------------------------------------------------------------------_#
 
 # ? --------------------------- IS IT A PROGRAM? --------------------------- ? #
@@ -108,6 +108,7 @@ DEBUG_FLAGS +=
 c:
 	@$(RM) $(DEBUGGER)* 
 	@$(RM) *.out *.dSYM *.gch test
+.PHONY: c
 
 debug: c a_files
 	@echo "	Compiling with debug flags..."
@@ -116,17 +117,20 @@ debug: c a_files
 	@mv a.out.dSYM $(DEBUGGER)
 	@mv a.out $(DEBUGGER)
 	@echo "	Ready to debug!"
+.PHONY: debug
 
 test: c a_files
 	@$(CC) $(CFLAGS) $(TEST) $(DEBUG_FLAGS) $(INCLUDES) $(LDFLAGS)
 	@mv a.out $(DEBUGGER)
 	@mv a.out.dSYM $(DEBUGGER)
+.PHONY: test
 
 trun : a_files
 	@$(CC) -o test $(CFLAGS) $(TEST) $(INCLUDES) $(LDFLAGS)
 	@echo "	arg?"
 	@read arg; \
 		./test $$arg
+.PHONY: trun
 
 #_----------------------------------------------------------------------------_#
 
@@ -137,8 +141,6 @@ trun : a_files
 #_----------------------------------------------------------------------------_#
 
 # * ----------------------------- BASIC RULES ----------------------------- * #
-
-.PHONY: clean fclean re all c bonus debug test a_files submodule aclean $(NAME)
 
 ifeq ($(OPTIMIZATION), 1)
 CFLAGS += -Ofast -O3
@@ -153,6 +155,7 @@ endif
 else
 all: $(NAME)
 endif
+.PHONY: all
 
 ifeq ($(PROGRAM), 1)
 $(NAME) : a_files $(OBJ)
@@ -168,6 +171,7 @@ clean: aclean
 	@echo "	Cleanig traces..."
 	@echo "	Ereasing Files .o"
 	@$(RM) $(OBJ+) $(OBJ)
+.PHONY: clean
 
 aclean:
 	@for dir in $(LIBRARIES_DIR); do \
@@ -183,21 +187,26 @@ aclean:
 			echo "	No need to clean $$dir"; \
 		fi \
 	done
+.PHONY: aclean
 
 fclean: clean
 	@echo "	Ereasing $(NAME)..."
 	@$(RM) $(NAME)
+.PHONY: fclean
 
 re: fclean all
+.PHONY: re
 
 submodule:
 	@git submodule update --init --recursive
+.PHONY: submodule
 
 a_files: submodule $(LIBRARIES_DIR)
 	@for dir in $(LIBRARIES_DIR); do \
 		echo "	Compiling $$dir..."; \
 		$(CALLMAKE) $$dir -s; \
 	done
+.PHONY: a_files
 
 %.o : %.c
 	@echo "	Compiling $@..."
@@ -208,6 +217,7 @@ run : all
 	@read arg; \
 		./$(NAME) $$arg | ./checker_Mac $$arg && \
 		./$(NAME) $$arg | wc -l
+.PHONY: run
 
 git : fclean
 	@echo "	Preparring to save to git repository..."
@@ -227,6 +237,7 @@ git : fclean
 			git tag -a $$tag -m "$$tag_msg"; \
 		fi
 	@git push
+.PHONY: git
 
 #_----------------------------------------------------------------------------_#
 
@@ -243,5 +254,6 @@ bonus: a_files $(OBJ+)
 	@echo "	Compiling $(NAME)_bonus..."
 	@$(CC) -o $(NAME)_bonus $(OBJ+) $(CFLAGS) $(INCLUDES) $(LDFLAGS)
 endif
+.PHONY: bonus
 
 #_----------------------------------------------------------------------------_#
