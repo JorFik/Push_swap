@@ -26,7 +26,6 @@ The `Push_swap` program takes a list of integer numbers as arguments and returns
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Installation
